@@ -1,3 +1,5 @@
+
+```
 const readline = require('readline');
 const rl = readline.createInterface({
     input: process.stdin,
@@ -176,3 +178,5 @@ SUMMARY OF HOW THE VIGENERE FUNCTION WORKS
     7. Another loop converts the summed indices into their corresponding alphabetical characters, and outputs the correct matching case info of that letter 
 
 */
+
+```
