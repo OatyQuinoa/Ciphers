@@ -1,3 +1,4 @@
+/* For console testing 
 const readline = require('readline')
 const rl = readline.createInterface({
     input: process.stdin,
@@ -12,7 +13,7 @@ rl.question('Enter your message to be decrypted: ', (message) => {
         })
     })
 })
-
+*/
 
 function modular_inverse(a, m) { // (a * a^-1) ≡ 1 (mod m), only if gcd(a, m) = 1; where we're searching for modular inverse a^-1
     a = Number(a)
