@@ -1,3 +1,4 @@
+/* For console testing 
 const readline = require('readline')
 const rl = readline.createInterface({
     input: process.stdin,
@@ -12,6 +13,7 @@ rl.question('Enter your message to be encrypted: ', (message) => {
         })
     })
 })
+*/
 
 function checkIfCoprime(a, b) { // where `a` and `b` are two numbers to be compared and checked if coprime // Also called GCD (greatest common divisor)
     let testCounterA = 1;
@@ -146,9 +148,8 @@ function affine_cipher(message, a, b) {
             output += message[i]
         }
     }
-
-    // Learn to use charCodeAt() for JS, and ord() for Python, which returns the corresponding ASCII/Unicode value of the input character 
-    return output // [roundedA, roundedB, a, b, output]
+    
+    return output 
 }   
 
 
