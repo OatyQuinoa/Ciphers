@@ -166,8 +166,6 @@ function affine_decipher(message, a, b) {
         } else {
             output += message[i]
         }
-    }
-
-    // Learn to use charCodeAt() for JS, and ord() for Python, which returns the corresponding ASCII/Unicode value of the input character 
+    } 
     return output 
 }   
