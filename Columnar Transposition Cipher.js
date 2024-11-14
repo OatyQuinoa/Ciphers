@@ -23,13 +23,13 @@ function special_sort(array) { // Standard sort() provided by JS sorts alphabeti
         return innerArray;  // Return the updated inner array
     });
 
-    //console.log(updated_array, 1);
+    console.log(1, updated_array);
 
     let sorted_array = updated_array.sort((a, b) => a[subArrayLength] - b[subArrayLength])
-    //console.log(sorted_array, 2);
+    console.log(2, sorted_array);
 
     let cleaned_array = sorted_array.map(innerArray => innerArray.slice(0, subArrayLength));
-    //console.log(cleaned_array, 3)
+    console.log(3, cleaned_array)
 
     return cleaned_array 
 }
