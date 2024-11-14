@@ -1,4 +1,3 @@
-/*
 const readline = require('readline')
 const rl = readline.createInterface({
     input: process.stdin,
@@ -7,13 +6,12 @@ const rl = readline.createInterface({
 
 rl.question("Enter a message: ", (message) => {
     rl.question("Enter a key: ", (key) => {
-        //console.log(messagePreparation(message))
         console.log(columnar_transposition_cipher(message, key))
         rl.close();
     })
 })
-*/
 
+// ADD COMMENTS TO EVALUATE THE CODE 
 function special_sort(array) { // Standard sort() provided by JS sorts alphabetically - is tedious when used with arrays with multiple different letters
     const subArrayLength = array[0].length
 
@@ -34,29 +32,27 @@ function special_sort(array) { // Standard sort() provided by JS sorts alphabeti
     return cleaned_array 
 }
 
+
 function columnar_transposition_cipher(message, key) {
 
-    key = key.replace(/\s+/g, ''); // Regex to remove any one or multiple whitespaces anywhere from the key. Key must be an uninterrupted string.
+    key = key.replace(/\s+/g, '');
 
-    //console.time("EXEC")
+    console.time("EXEC")
     // Establish maximum boundary of columnar message characters
     let message_and_key_length = (message.length + key.length)
-    let max_message_length = message_and_key_length % key.length !== 0 ? message_and_key_length - (message_and_key_length % key.length) + key.length : message_and_key_length
+    let max_message_length = message_and_key_length % key.length !== 0 ? message_and_key_length - (message_and_key_length % key.length) + key.length : message_and_key_length 
 
     /*
     If key length = 8 and message_and_key_length = 26, the number of rows (with filler characters) depends on the next multiple of key length
     Hence we subtract the remainder of 26 % 8 (= 2) from 18 and add key length (8) to find the maximum length accounting for the entire message and remaining filler characters 
-    E.g., 26 - 2 + 8 = 32. Therefore the next multiple of 8 from 24 is 32. 
+    E.g., 26 - 2 + 8 = 32. Therefore the next multiple of 8 from 18 is 32. 
     */
 
-    console.log("Message length: ", message.length, key.length)
+    console.log("Message length: ", message.length,)
 
     let array_of_arrays = []
     let sub_array = []
     message = key + message // Don't delete 
-
-    // Update code to treat message as an array, not a string. 
-    // This ensures that any complex characters like emojis are handled as single units.
 
     console.log(message, message.length, max_message_length) // Under testing
 
@@ -72,13 +68,13 @@ function columnar_transposition_cipher(message, key) {
                 sub_array.push(message[i])
             }
 
-            //console.log(i, message[i], " Condition 1")
-        } else if (message[i] == null || /\s/.test(message[i])) { // Padding "X" is added if no valid character exists for message[i]
+            console.log(i, message[i], " Condition 1")
+        } else if (message[i] == null || /\s/.test(message[i])) { // Padding "X" is added if no valid character exists for message[i] or regex detects a whitespace
             sub_array.push("X")
-            //console.log(message[i], " is empty.")
+            console.log(message[i], " is empty.")
         } else {
             sub_array.push(message[i])
-            //console.log(i, message[i], " Else condition")
+            console.log(i, message[i])
         }
     }
 
@@ -100,6 +96,6 @@ function columnar_transposition_cipher(message, key) {
     This yields a 1D array of only joined letters from each column, which can then be concatenated to produce the final string. 
     */
 
-    //console.timeEnd("EXEC")
-    return encrypted_message
+    console.timeEnd("EXEC")
+    return [encrypted_message, joined_elements_of_subarray, encrypted_message.length]
 }
