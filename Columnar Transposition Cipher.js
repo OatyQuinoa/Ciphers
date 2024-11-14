@@ -11,26 +11,34 @@ rl.question("Enter a message: ", (message) => {
     })
 })
 
-// ADD COMMENTS TO EVALUATE THE CODE 
 function special_sort(array) { // Standard sort() provided by JS sorts alphabetically - is tedious when used with arrays with multiple different letters
     const subArrayLength = array[0].length
+    
+    /* Note:
+    In an array of arrays, the last index of each subarray is 1 less than the length of the subarray
+    If subarray.length = 5, indices only go from 0 to 4.
+    . . .
+    Appended charCodes of the first value of each subarray will thus occupy subarray[5] (or subarray[subarray.length])
+    */
 
     // Append the ASCII value of the first character to each inner array
     let updated_array = array.map(innerArray => {
-        innerArray.push(innerArray[0].charCodeAt(0));  // Push the charCode of the first character
-        return innerArray;  // Return the updated inner array
+        innerArray.push(innerArray[0].charCodeAt(0));  // Determine the charCode of the first character (zeroth index) of each subarray
+        return innerArray;  // Return the updated inner array which has the appended charCodes at the end of each subarray
     });
 
-    console.log(1, updated_array);
+    //console.log("Updated_array: ", updated_array); // Log array subarrays, where each subarray contains the charCode of each letter of the key 
 
-    let sorted_array = updated_array.sort((a, b) => a[subArrayLength] - b[subArrayLength])
-    console.log(2, sorted_array);
+    let sorted_array = updated_array.sort((a, b) => a[subArrayLength] - b[subArrayLength]) // Sort each subarray according to the charCode, from smallest to largest, 
+    // whereby a[subArrayLength] and b[subArrayLength] both represent the last values of each subarray (the charCodes)
+    //console.log("Sorted_array: ", sorted_array); 
 
     let cleaned_array = sorted_array.map(innerArray => innerArray.slice(0, subArrayLength));
-    console.log(3, cleaned_array)
+    //console.log("Cleaned_array: ", cleaned_array)
 
     return cleaned_array 
 }
+
 
 
 function columnar_transposition_cipher(message, key) {
