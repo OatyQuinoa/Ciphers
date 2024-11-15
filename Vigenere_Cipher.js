@@ -97,6 +97,7 @@ function vigenere_cipher(message, key) {
         // Index of each letter in keyPatternArray is appended to indicesOfKeyPatternArray
     }
     
+    /*
     // Debugging console logs 
     console.log(arrayOfKeyLetters)
     console.log(message.length)
@@ -104,7 +105,7 @@ function vigenere_cipher(message, key) {
     console.log(keyPatternArray)
     console.log(keyPatternArray.length)
     console.log(indicesOfKeyPatternArray)
-
+    */
 
     // Adds the indices of letters from message and key for encryption
     for (let i = 0; i < arrayOfIndicesOfEachLetterInMessage.length; i++) {
@@ -121,9 +122,12 @@ function vigenere_cipher(message, key) {
             // Preserve non-alphabetical characters (spaces, punctuation, etc.) by adding null value 
         }
     }
+
+    /*
     console.log("resultList printed below: ")
     console.log(resultList)
-    
+    */
+
     // Convert added indices to encrypted letters using case info
     let vigenere_cipher_output = "";
     for (let i = 0; i < resultList.length; i++) {
