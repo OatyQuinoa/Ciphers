@@ -1,4 +1,4 @@
-/*const readline = require('readline')
+const readline = require('readline')
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -10,7 +10,6 @@ rl.question("Enter a message: ", (message) => {
         rl.close();
     })
 })
-*/
 
 function special_sort(array) { // Standard sort() provided by JS sorts alphabetically - is tedious when used with arrays with multiple different letters
     const subArrayLength = array[0].length
@@ -39,8 +38,6 @@ function special_sort(array) { // Standard sort() provided by JS sorts alphabeti
 
     return cleaned_array 
 }
-
-
 
 function columnar_transposition_cipher(message, key) {
 

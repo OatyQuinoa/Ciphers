@@ -1,4 +1,3 @@
-/*
 const readline = require('readline')
 const rl = readline.createInterface({
     input: process.stdin,
@@ -11,7 +10,6 @@ rl.question("Enter a message for decryption: ", (message) => {
         rl.close();
     })
 })
-*/
 
 function retrieveIndicesOfCharacterFromArray(array, value) { // retrieveIndicesOfCharacterFromArray
     return array
