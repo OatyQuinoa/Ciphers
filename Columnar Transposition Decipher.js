@@ -7,7 +7,7 @@ const rl = readline.createInterface({
 
 rl.question("Enter a message for decryption: ", (message) => {
     rl.question("Enter a key to decrypt message: ", (key) => {
-        console.log(columnar_transposition_decipher(message, key))
+        console.log(handlingCTDC(message, key))
         rl.close();
     })
 })
@@ -101,4 +101,20 @@ function columnar_transposition_decipher(message, key) { // CTDC
     //console.timeEnd("EXEC")
     return deciphered_message
     // return [alphabetically_sorted_message_columns, keyArrayLetters, deciphered_message]
+}
+
+function handlingCTDC(encryptedMessage, key) { // Properly handle errors for the decryption algorithm
+    try {
+        const decrypted_message_CTDC = columnar_transposition_decipher(encryptedMessage, key)
+
+        if (!decrypted_message_CTDC) {
+            throw new Error("Decryption failed: invalid key or corrupted data.")
+        }
+
+        return decrypted_message_CTDC // return message from function for output
+
+    } catch (error) {
+        console.error("Decryption error occurred: ", error)
+        return "Decryption failed."
+    }
 }
