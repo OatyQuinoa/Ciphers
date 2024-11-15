@@ -1,2 +1,2 @@
 # Ciphers
-A collection of Cipher related functions
+A collection of CipherS as functions
