@@ -60,11 +60,11 @@ function columnar_transposition_cipher(message, key) {
     let sub_array = []
     message = key + message // Don't delete 
 
-    console.log(message, message.length, max_message_length) // Under testing
+    //console.log(message, message.length, max_message_length) // Under testing
 
     for (i = 0; i <= max_message_length; i++) { // i <= max_message_length considers the last multiple of key.length (e.g., key length = 8, max_msg_length = 24; if 23, 23 % 24 doesn't work)
         if (i % key.length === 0) {
-            sub_array.length === 0 ? null : array_of_arrays.push(sub_array) // null specifies JS to do nothing 
+            sub_array.length === 0 ? null : array_of_arrays.push(sub_array) // if nothing in subarray, null specifies JS to do nothing. Otherwise, push the subarray into the array of arrays
             sub_array = [] // clears everything within the array
 
             // Properly handle any whtiespaces that may be counted 
@@ -74,13 +74,13 @@ function columnar_transposition_cipher(message, key) {
                 sub_array.push(message[i])
             }
 
-            console.log(i, message[i], " Condition 1")
+            //console.log(i, message[i], " Condition 1")
         } else if (message[i] == null || /\s/.test(message[i])) { // Padding "X" is added if no valid character exists for message[i] or regex detects a whitespace
             sub_array.push("X")
-            console.log(message[i], " is empty.")
+            //console.log(message[i], " is empty.")
         } else {
             sub_array.push(message[i])
-            console.log(i, message[i])
+            //console.log(i, message[i])
         }
     }
 
@@ -90,7 +90,7 @@ function columnar_transposition_cipher(message, key) {
         array_of_unsorted_columns.push(column_array)
     }
     
-    console.log(array_of_unsorted_columns) // According to the order of key
+    //console.log(array_of_unsorted_columns) // According to the order of key
 
     // array_of_unsorted_columns // Sort the columns (specifically the first letter) alphabetically 
     let alphabetically_sorted_columns = sort_accordingly(array_of_unsorted_columns) // Sort them with special_sort function 
@@ -103,5 +103,6 @@ function columnar_transposition_cipher(message, key) {
     */
 
     console.timeEnd("EXEC")
-    return [encrypted_message, joined_elements_of_subarray, encrypted_message.length]
+    //return [encrypted_message, joined_elements_of_subarray, encrypted_message.length]
+    return encrypted_message
 }
