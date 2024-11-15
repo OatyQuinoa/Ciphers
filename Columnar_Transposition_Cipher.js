@@ -11,7 +11,7 @@ rl.question("Enter a message: ", (message) => {
     })
 })
 
-function special_sort(array) { // Standard sort() provided by JS sorts alphabetically - is tedious when used with arrays with multiple different letters
+function sort_accordingly(array) { // As opposed to standard sort() provided by JS sorts alphabetically, which is tedious when used with arrays with multiple different letters
     const subArrayLength = array[0].length
     
     /* Note:
@@ -93,7 +93,7 @@ function columnar_transposition_cipher(message, key) {
     console.log(array_of_unsorted_columns) // According to the order of key
 
     // array_of_unsorted_columns // Sort the columns (specifically the first letter) alphabetically 
-    let alphabetically_sorted_columns = special_sort(array_of_unsorted_columns) // Sort them with special_sort function 
+    let alphabetically_sorted_columns = sort_accordingly(array_of_unsorted_columns) // Sort them with special_sort function 
     let joined_elements_of_subarray = alphabetically_sorted_columns.map(subArray => subArray.join("")) // Join each element of the subarray into one single element
     const encrypted_message = joined_elements_of_subarray.join("") // Join the subarrays of strings altogether for the final message
 
