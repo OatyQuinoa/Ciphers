@@ -70,7 +70,7 @@ function columnar_transposition_cipher(message, key) {
         }
     }
 
-    let array_of_unsorted_columns = [] // AEOBHWBLREODILLSXX (HELLO WORLD, BABIES)
+    let array_of_unsorted_columns = [] 
     for (i = 0; i < key.length; i++) { // Sort out each column from array_of_arrays 
         let column_array = array_of_arrays.map(column => column[i])
         array_of_unsorted_columns.push(column_array)

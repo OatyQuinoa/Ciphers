@@ -1,4 +1,4 @@
-const readline = require('readline')
+const readline = require("readline")
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -27,9 +27,9 @@ function sort_accordingly(array) { // As opposed to standard sort() provided by 
 }
 
 function generateRandomKey() {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
     let randomKey = ""
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) { // Where 10 = length of key. The longer the key, the better
         let randomCharacter = characters[Math.floor(Math.random() * characters.length)] // Math.random() generates a decimal between 0 and 1
         randomKey += randomCharacter
     }
@@ -37,7 +37,7 @@ function generateRandomKey() {
 }
 
 function columnar_transposition_cipher_with_randomly_generated_key(message, key) {
-    key = key.replace(/\s+/g, '');
+    key = key.replace(/\s+/g, "");
 
     // Establish maximum boundary of columnar message characters
     let message_and_key_length = (message.length + key.length)
@@ -52,7 +52,7 @@ function columnar_transposition_cipher_with_randomly_generated_key(message, key)
             sub_array.length === 0 ? null : array_of_arrays.push(sub_array) // if nothing in subarray, null specifies JS to do nothing. Otherwise, push the subarray into the array of arrays
             sub_array = [] // clears everything within the array
 
-            // Properly handle any whtiespaces that may be counted 
+            // Properly handle any whtiespaces that may be counted when entering new column
             if (message[i] == null || /\s/.test(message[i])) { // /\s\ tests for whitespace (e.g., space, new lines)
                 sub_array.push("X")
             } else {
@@ -67,7 +67,7 @@ function columnar_transposition_cipher_with_randomly_generated_key(message, key)
         }
     }
 
-    let array_of_unsorted_columns = [] // AEOBHWBLREODILLSXX (HELLO WORLD, BABIES)
+    let array_of_unsorted_columns = [] 
     for (i = 0; i < key.length; i++) { // Sort out each column from array_of_arrays 
         let column_array = array_of_arrays.map(column => column[i])
         array_of_unsorted_columns.push(column_array)
