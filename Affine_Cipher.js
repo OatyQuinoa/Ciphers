@@ -33,19 +33,27 @@ function checkIfCoprime(a, b) { // where `a` and `b` are two numbers to be compa
         testCounterB++;
     }
     
-    // Sort arrays in ascending order 
+    // Sort arrays in ascending order so following pointers work 
     factorArrayA.sort((a,b) => (a - b));
     factorArrayB.sort((a,b) => (a - b));
 
     /*
-    In ((a, b) => a - b), if a - b is positive (a > b), a will come after b. 
-    If a - b is negative (a < b), a will come before b.
+    ASCENDING ORDER: ((a, b) => a - b):
+    If a - b < 0 (i.e., a < b): a comes before b.
+    If a - b > 0 (i.e., a > b): a comes after b.
+    If a - b === 0: The order of a and b remains unchanged.
+
+    DESCENDING ORDER: ((b, a) => b - a):
+    If b - a < 0 (i.e., b < a): b comes before a (in this context, a comes after b).
+    If b - a > 0 (i.e., b > a): b comes after a (in this context, a comes before b).
+    If b - a === 0: The order of a and b remains unchanged.
     */
 
-    let array_of_duplicates = []
+    let array_of_duplicates = [] // Stores duplicate numbers 
     let right_pointer_a = factorArrayA.length - 1
     let right_pointer_b = factorArrayB.length - 1
 
+    // Utilize pointers to find duplicate values in two arrays
     while (right_pointer_a >= 0 && right_pointer_b >= 0) { 
         if (factorArrayA[right_pointer_a] === factorArrayB[right_pointer_b]) { // If same value found, move both pointers to the left by 1
             array_of_duplicates.push(factorArrayA[right_pointer_a])
@@ -66,7 +74,7 @@ function checkIfCoprime(a, b) { // where `a` and `b` are two numbers to be compa
     }
 }
 
-function affine_cipher(message, a, b) {
+function affine_cipher(message, a, b) { 
     let caseInfo = []
     let messageIndicesArray = []
     let encryptedMessageIndicesArray = []
@@ -88,7 +96,6 @@ function affine_cipher(message, a, b) {
     } else { // Specify the value type of `a` and `b` as numbers to avoid string and numerical concatenation (e.g., 72 + "4" = 724)
         a = Number(a); 
         b = Number(b); 
-        //console.log(`${a} and ${b} are valid numbers.`)
     }
 
     // Checks whether `a` is coprime utilizing checkIfCoprime function, which uses factorNumber(number) and duplicateCheck(array1, array2). If `a` is not coprime, Affine decryption does not work. 
