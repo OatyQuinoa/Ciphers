@@ -22,11 +22,10 @@ function mapZerothElementOfSubarray(array_of_arrays) { // Creates a new array wi
 }
 
 function columnar_transposition_decipher(message, key) { // CTDC
-    //console.time("EXEC")
-    
     let alphabetically_sorted_message_columns = [] 
     let sub_array = [] 
 
+    // Sort messages by column according to the length of columns (message.length / key.length)
     for (i = 0; i < message.length + 1; i++) { // message.length + 1 to account for indices starting at zero, hence a message length of 12 only goes up to 11
         if (i % (message.length / key.length) === 0) {
             sub_array.length === 0 ? null : alphabetically_sorted_message_columns.push(sub_array) // null specifies JS to do nothing 
@@ -37,25 +36,20 @@ function columnar_transposition_decipher(message, key) { // CTDC
         }
     }
 
-    // ------------------------------------------------------------------------------------------------------------------
-
     const keyLetters = key.split('') // Return ans array containing each letter of the key 
     const keyArrayLetters = mapZerothElementOfSubarray(alphabetically_sorted_message_columns) // Return each letter of the alphabetically-sorted key column, containing duplicate letters
     const keyArrayFromSet = Array.from(new Set(keyArrayLetters)) // Returns an array of the alphabetically-sorted key column without duplicate letters
     // (Array.from) converts Set (3) {'A', 'I', 'M'} (set object notation) into ['A', 'I', 'M']
-    console.log(keyArrayFromSet)
 
     let sorted_index_array = [] // Matches the letters of the alphabetically-sorted key to their actual index positions in the regular key
     keyArrayFromSet.forEach(char => { // Get the indices for each element and push them into the result array
         sorted_index_array = sorted_index_array.concat(retrieveIndicesOfCharacterFromArray(keyLetters, char));  // Concat adds an array to another array
     });
-    
-    console.log(sorted_index_array);  // Example output: [1, 3, 6, 5, 0, 2, 4] 
 
     /*
     if keyLetters = [M, A, M, A, M, I, A],
         retrieveIndicesOfCharacterFromArray(keyLetters, char) returns an array containing the indices of each char in keyLetters 
-    
+
     keyArrayFromSet = keyLetters without duplicates: [A, I, M]
     Each letter in keyArrayFromSet goes through the retrieveIndicesOfCharacterFromArray(keyLetters, char) function. 
     Hence the letter 'A' is checked in the parameter array `keyLetters` and the function returns [1, 3, 6],
@@ -71,10 +65,6 @@ function columnar_transposition_decipher(message, key) { // CTDC
     for (i = 0; i < sorted_index_array.length; i++) {
         resorted_message_columns[sorted_index_array[i]] = alphabetically_sorted_message_columns[i] // Assign position of key letter
     }
-
-    console.log(resorted_message_columns) // Log resorted columns in the order of the actual key
-
-    // ------------------------------------------------------------------------------------------------------------------
 
     let encryptedMessageLength = (resorted_message_columns[0].length * resorted_message_columns.length) - key.length;
     let deciphered_message = "";
@@ -93,24 +83,17 @@ function columnar_transposition_decipher(message, key) { // CTDC
         const currentCharacter = resorted_message_columns[subarray_counter][indices_within_subarray_counter];
         deciphered_message += currentCharacter === "X" ? " " : currentCharacter;
     }
-
     deciphered_message = deciphered_message.trimEnd() // Trim end of the message of any whitespaces. 
-
-    //console.timeEnd("EXEC")
     return deciphered_message
-    // return [alphabetically_sorted_message_columns, keyArrayLetters, deciphered_message]
 }
 
 function handlingCTDC(encryptedMessage, key) { // Properly handle errors for the decryption algorithm
     try {
         const decrypted_message_CTDC = columnar_transposition_decipher(encryptedMessage, key)
-
         if (!decrypted_message_CTDC) {
             throw new Error("Decryption failed: invalid key or corrupted data.")
         }
-
-        return decrypted_message_CTDC // return message from function for output
-
+        return decrypted_message_CTDC // return decrypted message from CTDC function to user if no error is detected
     } catch (error) {
         console.error("Decryption error occurred: ", error)
         return "Decryption failed."
