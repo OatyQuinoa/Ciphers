@@ -16,6 +16,7 @@ def vigenere_cipher(message, key):
         "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
     ]
 
+    # Sort letters in the message according to uppercase or lowercase, then append the corresponding index of each letter from the alphabet into messageIndicesArray
     for letter in message:
         alphabetToUse = uppercaseAlphabet # Alphabet in use 
 

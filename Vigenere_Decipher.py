@@ -16,6 +16,7 @@ def vigenere_decipher(message, key):
         "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
     ]
 
+    # Sort letters in the message according to uppercase or lowercase, then append the corresponding index of each letter from the alphabet into messageIndicesArray
     for letter in message:
         alphabetToUse = uppercaseAlphabet # Alphabet in use 
 
@@ -56,21 +57,22 @@ def vigenere_decipher(message, key):
         if letter == " ":
             indexedKeyPatternArray.append(-1)
 
+    # Determine the plaintext character from encrypted text
     for index in range(len(messageIndicesArray)): # range() creates a sequence of numbers representing each ascending index of messageIndicesArray
         if messageIndicesArray[index] != -1 and indexedKeyPatternArray[index] != -1: # Checks both array of message indices and array of key indices to see whether -1 (symbol/space, etc.) exists 
             decryptedMessageIndicesArray.append(((messageIndicesArray[index] + 26) - indexedKeyPatternArray[index]) % 26) # Add 26 to account for negative numbers when subtracting index of key letter
         else:
             decryptedMessageIndicesArray.append(None)
 
-    vigenere_cipher_output = ""
+    vigenere_deciphered_output = ""
     for index in range(len(decryptedMessageIndicesArray)):
         if decryptedMessageIndicesArray[index] != None:
+            # Syntax for ternary operator in Python: (value_if_true) if (condition) else (value_if_false)
             correspondingAlphabetToUse = uppercaseAlphabet if caseInfo[index] == "upper" else lowercaseAlphabet # Outputs the decrypted letter based on whether corresponding caseInfo value is upper or lower 
-            # Syntax for ternary operator in Py: (value_if_true) if (condition) else (value_if_false)
-            vigenere_cipher_output += correspondingAlphabetToUse[decryptedMessageIndicesArray[index]] 
+            vigenere_deciphered_output += correspondingAlphabetToUse[decryptedMessageIndicesArray[index]] 
         else: 
-            vigenere_cipher_output += message[index]
+            vigenere_deciphered_output += message[index]
 
-    return vigenere_cipher_output
+    return vigenere_deciphered_output 
 
 print(vigenere_decipher(message, key))
