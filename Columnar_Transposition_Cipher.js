@@ -85,5 +85,6 @@ function columnar_transposition_cipher(message, key) {
     Map the array_of_sorted columns (an array of arrays (2D)) with a callback function that joins the contents of each iterable (i.e., subarray)
     This yields a 1D array of only joined letters from each column, which can then be concatenated to produce the final string. 
     */
+   
     return encrypted_message
 }

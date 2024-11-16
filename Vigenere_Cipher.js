@@ -96,16 +96,6 @@ function vigenere_cipher(message, key) {
         }
         // Index of each letter in keyPatternArray is appended to indicesOfKeyPatternArray
     }
-    
-    /*
-    // Debugging console logs 
-    console.log(arrayOfKeyLetters)
-    console.log(message.length)
-    console.log(arrayOfIndicesOfEachLetterInMessage)
-    console.log(keyPatternArray)
-    console.log(keyPatternArray.length)
-    console.log(indicesOfKeyPatternArray)
-    */
 
     // Adds the indices of letters from message and key for encryption
     for (let i = 0; i < arrayOfIndicesOfEachLetterInMessage.length; i++) {
@@ -123,11 +113,6 @@ function vigenere_cipher(message, key) {
         }
     }
 
-    /*
-    console.log("resultList printed below: ")
-    console.log(resultList)
-    */
-
     // Convert added indices to encrypted letters using case info
     let vigenere_cipher_output = "";
     for (let i = 0; i < resultList.length; i++) {
@@ -135,29 +120,11 @@ function vigenere_cipher(message, key) {
         if (resultList[i] !== null) {
             // Use correct alphabet based on caseInfo
             let correspondingAlphabet = caseInfo[i] === "upper" ? alphabet : lowercaseAlphabet;
-
-            /*
-            Ternary Operator:
-            condition ? value_if_true : value_if_false;
-            caseInfo[i] === "upper" ? alphabet : lowercaseAlphabet;
-
-            The in-line if statement is shorthand to evaluate whether to 
-            use the uppercase or lowercase alphabet, based on the caseInfo value.
-            */
-
-            /* 
-            Then add corresponding letter to vignere_cipher_output, 
-            Where resultList is an array of numerical indices of encrypted letters 
-                if resultList = [25, 2, 3],
-                When i = 0, correspondingAlphabet[resultList[0]] gives "Y" 
-                Because the zeroth index of resultList is 25, correspondingAlphabet[25] = "Y"
-            */ 
-
             vigenere_cipher_output += correspondingAlphabet[resultList[i]];
 
         } else {
             vigenere_cipher_output += message[i]; 
-            // Non-alphabetical characters are added to the output if null is detected in resultList 
+            // Non-alphabetical characters from message are added to the output if null is detected in resultList 
         }
     }
 

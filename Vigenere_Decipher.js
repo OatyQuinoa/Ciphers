@@ -100,33 +100,17 @@ function vigenere_cipher(message, key) {
         // Index of each letter in keyPatternArray is appended to indicesOfKeyPatternArray
     }
     
-    // Debugging console logs 
-    console.log(arrayOfKeyLetters)
-    console.log(message.length)
-    console.log(arrayOfIndicesOfEachLetterInMessage)
-    console.log(keyPatternArray)
-    console.log(keyPatternArray.length)
-    console.log(indicesOfKeyPatternArray)
-
-
     // Adds the indices of letters from message and key for encryption
     for (let i = 0; i < arrayOfIndicesOfEachLetterInMessage.length; i++) {
         // If statement checks for -1 values (representing non-alphabetical characters) in arrayOfIndicesOfEachLetterInMessage and indicesOfKeyPatternArray 
         if (arrayOfIndicesOfEachLetterInMessage[i] !== -1 && indicesOfKeyPatternArray[i] !== -1) {
             resultList.push(((arrayOfIndicesOfEachLetterInMessage[i] + 26) - indicesOfKeyPatternArray[i]) % 26); 
-            /* 
-            Formula: (index of letter in message + index of letter in key) % 26 
-            Indices of corresponding message and key letter are added together,
-            then modulo 26 to wrap around the alphabet 
-            */ 
         } else {
             resultList.push(null); 
             // Preserve non-alphabetical characters (spaces, punctuation, etc.) by adding null value 
         }
     }
-    console.log("resultList printed below: ")
-    console.log(resultList)
-    
+
     // Convert added indices to encrypted letters using case info
     let vigenere_deciphered_output = "";
     for (let i = 0; i < resultList.length; i++) {
@@ -162,18 +146,3 @@ function vigenere_cipher(message, key) {
 
     return "Your Vigenere decrypted message is: " + vigenere_deciphered_output;
 }
-
-
-/* 
-SUMMARY OF HOW THE VIGENERE FUNCTION WORKS 
-
-    1. Case of each letter of inputted message is noted down in caseInfo array 
-    2. The corresponding index of each letter in the inputted message is added to arrayOfIndicesOfEachLetterInMessage 
-    3. A for loop adds each letter of the given key into an array
-    4. A key pattern array is created to emulate the repetitions of the key when enciphering the message 
-    5. The corresponding indices of of repeated key letters in keyPatternArray are determined and added to indicesOfKeyPatternArray
-    6. A loop checks whether -1 (denotive of non-alphabetical characters) is present and deducts the corresponding indices of the index letter from the messager letter, appended to resultList 
-        Formula: Deciphered Text = (Ciphertext Character − Key Character + 26) % 26
-    7. Another loop converts the summed indices into their corresponding alphabetical characters, and outputs the correct matching case info of that letter 
-
-*/
