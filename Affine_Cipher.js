@@ -1,4 +1,3 @@
-/* For console testing 
 const readline = require('readline')
 const rl = readline.createInterface({
     input: process.stdin,
@@ -8,12 +7,11 @@ const rl = readline.createInterface({
 rl.question('Enter your message to be encrypted: ', (message) => {
     rl.question('Enter a value of a: ', (a) => {
         rl.question('Enter a value of b: ', (b) => {
-            console.log(affine_cipher(message, a, b));
+            console.log(handling_affine_cipher(message, a, b));
             rl.close();
         })
     })
 })
-*/
 
 function checkIfCoprime(a, b) { // where `a` and `b` are two numbers to be compared and checked if coprime // Also called GCD (greatest common divisor)
     let testCounterA = 1;
@@ -103,12 +101,6 @@ function affine_cipher(message, a, b) {
     // Round `a` and `b` to the nearest whole number if decimal (floating-point) number detected in input.
     const roundedA = ((a - Math.floor(a)) >= 0.5) ? Math.ceil(a) : Math.floor(a)
     const roundedB = ((b - Math.floor(b)) >= 0.5) ? Math.ceil(b) : Math.floor(b)
-
-    /*
-    If a = 3.2,
-    a - Math.floor(a) = 3.2 - 3 = 0.2
-    a - Math.floor(a) determines the decimals of the provided numerical input 
-    */
 
     for (i = 0; i < message.length; i++) {
         letter = message[i];
