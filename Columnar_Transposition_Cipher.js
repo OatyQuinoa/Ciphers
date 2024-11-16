@@ -27,23 +27,17 @@ function sort_accordingly(array) { // As opposed to standard sort() provided by 
         return innerArray;  // Return the updated inner array which has the appended charCodes at the end of each subarray
     });
 
-    //console.log("Updated_array: ", updated_array); // Log array subarrays, where each subarray contains the charCode of each letter of the key 
-
     let sorted_array = updated_array.sort((a, b) => a[subArrayLength] - b[subArrayLength]) // Sort each subarray according to the charCode, from smallest to largest, 
     // whereby a[subArrayLength] and b[subArrayLength] both represent the last values of each subarray (the charCodes)
-    //console.log("Sorted_array: ", sorted_array); 
 
     let cleaned_array = sorted_array.map(innerArray => innerArray.slice(0, subArrayLength));
-    //console.log("Cleaned_array: ", cleaned_array)
 
     return cleaned_array 
 }
 
 function columnar_transposition_cipher(message, key) {
-
     key = key.replace(/\s+/g, '');
 
-    console.time("EXEC")
     // Establish maximum boundary of columnar message characters
     let message_and_key_length = (message.length + key.length)
     let max_message_length = message_and_key_length % key.length !== 0 ? message_and_key_length - (message_and_key_length % key.length) + key.length : message_and_key_length 
@@ -54,13 +48,9 @@ function columnar_transposition_cipher(message, key) {
     E.g., 26 - 2 + 8 = 32. Therefore the next multiple of 8 from 18 is 32. 
     */
 
-    console.log("Message length: ", message.length,)
-
     let array_of_arrays = []
     let sub_array = []
-    message = key + message // Don't delete 
-
-    //console.log(message, message.length, max_message_length) // Under testing
+    message = Array.from(key + message) // Merge `key` and `message` strings together, then convert them into array form 
 
     for (i = 0; i <= max_message_length; i++) { // i <= max_message_length considers the last multiple of key.length (e.g., key length = 8, max_msg_length = 24; if 23, 23 % 24 doesn't work)
         if (i % key.length === 0) {
@@ -73,14 +63,10 @@ function columnar_transposition_cipher(message, key) {
             } else {
                 sub_array.push(message[i])
             }
-
-            //console.log(i, message[i], " Condition 1")
         } else if (message[i] == null || /\s/.test(message[i])) { // Padding "X" is added if no valid character exists for message[i] or regex detects a whitespace
             sub_array.push("X")
-            //console.log(message[i], " is empty.")
         } else {
             sub_array.push(message[i])
-            //console.log(i, message[i])
         }
     }
 
@@ -89,8 +75,6 @@ function columnar_transposition_cipher(message, key) {
         let column_array = array_of_arrays.map(column => column[i])
         array_of_unsorted_columns.push(column_array)
     }
-    
-    //console.log(array_of_unsorted_columns) // According to the order of key
 
     // array_of_unsorted_columns // Sort the columns (specifically the first letter) alphabetically 
     let alphabetically_sorted_columns = sort_accordingly(array_of_unsorted_columns) // Sort them with special_sort function 
@@ -101,8 +85,5 @@ function columnar_transposition_cipher(message, key) {
     Map the array_of_sorted columns (an array of arrays (2D)) with a callback function that joins the contents of each iterable (i.e., subarray)
     This yields a 1D array of only joined letters from each column, which can then be concatenated to produce the final string. 
     */
-
-    console.timeEnd("EXEC")
-    //return [encrypted_message, joined_elements_of_subarray, encrypted_message.length]
     return encrypted_message
 }
