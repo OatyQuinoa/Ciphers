@@ -60,10 +60,11 @@ function checkIfCoprime(a, b) { // where `a` and `b` are two numbers to be compa
         } 
     }
 
-    if (array_of_duplicates.length === 1 && array_of_duplicates[0] === 1) {
-        return true
+    // Checks if the there is only 1 subarray within the array of arrays, and the value of the subarray is the only common factor 1. 
+    if (array_of_duplicates.length === 1 && array_of_duplicates[0] === 1) { 
+        return true // a and b are coprime
     } else {
-        return false 
+        return false // a and b are NOT coprime
     }
 }
 
@@ -111,7 +112,6 @@ function affine_cipher(message, a, b) {
 
     for (i = 0; i < message.length; i++) {
         letter = message[i];
-
         if (uppercaseAlphabet.includes(letter)) {
             caseInfo.push("uppercase")
             messageIndicesArray.push(uppercaseAlphabet.indexOf(letter)) // Add the index of each letter of message to messageIndices array (uppercase)
@@ -152,4 +152,15 @@ function affine_cipher(message, a, b) {
     return output 
 }   
 
-
+function handling_affine_cipher(message, a, b) {
+    try {
+        const encrypted_affine_message = affine_cipher(message, a, b)
+        if (!encrypted_affine_message) {
+            throw new Error("Encryption failed.")
+        }
+        return encrypted_affine_message // Output encrypted message to user if successful
+    } catch (error) {
+        console.error("Encryption error occurred: ", error)
+        return "Encrypting with Affine cipher failed."
+    }
+}
