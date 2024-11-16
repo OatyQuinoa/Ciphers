@@ -66,7 +66,7 @@ function columnar_transposition_decipher(message, key) { // CTDC
         resorted_message_columns[sorted_index_array[i]] = alphabetically_sorted_message_columns[i] // Assign position of key letter
     }
 
-    let encryptedMessageLength = (resorted_message_columns[0].length * resorted_message_columns.length) - key.length;
+    let encryptedMessageLength = (resorted_message_columns[0].length * resorted_message_columns.length) - key.length; // Finds the length of the encrypted message, excluding the key, from the sorted columns
     let deciphered_message = "";
     let subarray_counter = -1; // Counts each subarray of the array of arrays
     let indices_within_subarray_counter = 0; // Counts each index within the subarray 
@@ -81,8 +81,9 @@ function columnar_transposition_decipher(message, key) { // CTDC
             subarray_counter++
         }
         const currentCharacter = resorted_message_columns[subarray_counter][indices_within_subarray_counter];
-        deciphered_message += currentCharacter === "X" ? " " : currentCharacter;
+        deciphered_message += currentCharacter === "X" ? " " : currentCharacter; // If X is detected in encrypted message, decrypt it by substituting it with a whitespace
     }
+
     deciphered_message = deciphered_message.trimEnd() // Trim end of the message of any whitespaces. 
     return deciphered_message
 }
