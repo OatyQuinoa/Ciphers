@@ -4,7 +4,7 @@ const rl = readline.createInterface({
     output: process.stdout
 })
 
-rl.question("Enter a message: ", (message) => { // Transposition_Substitution_Hybrid_Cipher
+rl.question("Enter a message for encryption: ", (message) => { // Transposition_Substitution_Hybrid_Cipher
     rl.question("Enter a key: ", (key) => {
         console.log(transposition_substitution_hybrid_cipher(message, key))
         rl.close();
@@ -26,7 +26,19 @@ function sort_accordingly(array) { // Used for columnar transposition after subs
 
 function transposition_substitution_hybrid_cipher(message, key) {
     key = key.replace(/\s+/g, ''); // Clean the key by removing whitespaces
-    const messageCharCodes = Array.from(message, char => char.charCodeAt(0)) // Store the ASCII values of each character 
+    let validCharArray = [
+        ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 
+        'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 
+        'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+    ]
+      
+    const messageCharCodes = Array.from(message, char => validCharArray.indexOf(char)) // Store the ASCII values of each character 
+    /* 
+    Parse space as filler character X, remove ' ' from validCharArray, modify modulo to 61 instead of 62
+    Add if statement condition to check for spaces in input message
+    */
 
     /*
     Syntax: Array.from(iterable, map function) 
@@ -36,23 +48,23 @@ function transposition_substitution_hybrid_cipher(message, key) {
     Each character occupies the zero index as they are being iterated over *
     */
     
-    let charCodeKeyArray = Array.from(key, char => char.charCodeAt(0)) // Determines the ASCII values of each character in the key, added to array
-
+    let charCodeKeyArray = Array.from(key, char => validCharArray.indexOf(char)) // Determines the ASCII values of each character in the key, added to array
     let repeatedCharCodeKeyArray = [] 
     for (i = 0; i < message.length; i++) { // Repeats ASCII values of repeated key, according to message length
         repeatedCharCodeKeyArray.push(charCodeKeyArray[i % key.length])
     }
-
+  
     let summedCharArray = []
     for (i = 0; i < message.length; i++) {
-        summedCharArray.push(((messageCharCodes[i] + repeatedCharCodeKeyArray[i] - 32) % 95) + 32)
+        summedCharArray.push((messageCharCodes[i] + repeatedCharCodeKeyArray[i]) % 62)
     }
 
     // Create an array which converts each ASCII value from summedCharArray into corresponding printable 
-    const substitutedCharArray = summedCharArray.map(asciiValue => String.fromCharCode(asciiValue)) 
+    const substitutedCharArray = summedCharArray.map(index => validCharArray[index]) 
     let substitutedCharString = substitutedCharArray.join('') // Join each character into a string 
 
     // Console debugging purposes 
+    console.log("validCharArray length: ", validCharArray.length)
     console.log("Message Char Codes: ", messageCharCodes, messageCharCodes.length)
     console.log("Key Array: ", charCodeKeyArray, charCodeKeyArray.length)
     console.log("Repeated Key Array: ", repeatedCharCodeKeyArray, repeatedCharCodeKeyArray.length)
@@ -71,7 +83,6 @@ function transposition_substitution_hybrid_cipher(message, key) {
         if (i % key.length === 0) {
             sub_array.length === 0 ? null : array_of_arrays.push(sub_array)
             sub_array = [] 
-
             if (message[i] == null || /\s/.test(message[i])) { 
                 sub_array.push("X")
             } else {
@@ -94,5 +105,8 @@ function transposition_substitution_hybrid_cipher(message, key) {
     let joined_elements_of_subarray = alphabetically_sorted_columns.map(subArray => subArray.join("")) 
     const encrypted_message = joined_elements_of_subarray.join("") 
 
-    return encrypted_message
+    return [array_of_arrays, encrypted_message]
 }
+
+// TheQuickBrownFox123JumpedOverTheLazyDog456
+// 123ABC
