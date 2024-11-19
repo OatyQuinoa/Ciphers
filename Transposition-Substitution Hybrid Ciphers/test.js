@@ -120,6 +120,3 @@ function transposition_substitution_hybrid_cipher(message, key) {
 
     return [array_of_arrays, encrypted_message, encrypted_message.length]
 }
-
-// TheQuickBrownFox123JumpedOverTheLazyDog456
-// 123ABC
