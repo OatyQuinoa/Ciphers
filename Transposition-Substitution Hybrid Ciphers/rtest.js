@@ -69,22 +69,23 @@ function transposition_substitution_hybrid_decipher(message, key) { // CTDC
             subarray_counter++
         }
         const currentCharacter = resorted_message_columns[subarray_counter][indices_within_subarray_counter];
-        detransposed_message += currentCharacter === "X" ? " " : currentCharacter; // If X is detected in encrypted message, decrypt it by substituting it with a whitespace
+        //detransposed_message += currentCharacter === "X" ? " " : currentCharacter; // If X is detected in encrypted message, decrypt it by substituting it with a whitespace
+        detransposed_message += currentCharacter
     }
 
     // Detransposed_message represents the resulting message retransposed according to the valid key. Reversion of substituted characters follows below
     detransposed_message  = detransposed_message.trimEnd() // Trim end of the message of any whitespaces. 
     console.log("detransposed_message: ", detransposed_message, detransposed_message.length)
 
-    // Reverse substitution logic begins here:
+    // Reverse substitution logic begins here: 
     let validCharArray = [
-        ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 
         'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 
         'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-    ]
-    console.log("validCharArray: ", validCharArray.length)
+    ] 
+    console.log("validCharArray: ", validCharArray.length) 
 
     const detransposedMessageIndices = Array.from(detransposed_message, char => validCharArray.indexOf(char)) // Store the index values of each character, according to their positions in validCharArray
     let charCodeKeyArray = Array.from(key, char => validCharArray.indexOf(char)) // Determines the ASCII values of each character in the key, added to array
@@ -98,12 +99,16 @@ function transposition_substitution_hybrid_decipher(message, key) { // CTDC
   
     let decryptedCharsIndicesArray = []
     for (i = 0; i < detransposed_message.length; i++) {
-        decryptedCharsIndicesArray.push(((detransposedMessageIndices[i] + 62) - repeatedKeyArray[i]) % 62)
+        if (detransposedMessageIndices[i] !== -1) {
+            decryptedCharsIndicesArray.push(((detransposedMessageIndices[i] + 62) - repeatedKeyArray[i]) % 62)
+        } else {
+            decryptedCharsIndicesArray.push(-1)
+        }
     }
     console.log("decryptedCharsIndicesArray: ", decryptedCharsIndicesArray, decryptedCharsIndicesArray.length)
 
     // Create an array which converts each index value from decryptedCharsArray into corresponding letter from validCharArray 
-    const decryptedCharArray = decryptedCharsIndicesArray.map(index => validCharArray[index]) 
+    const decryptedCharArray = decryptedCharsIndicesArray.map(index => index == -1 ? " " : validCharArray[index]) 
     console.log("decryptedCharArray: ", decryptedCharArray, decryptedCharArray.length)
 
     let decryptedCharString = decryptedCharArray.join('') // Join each character into a string 

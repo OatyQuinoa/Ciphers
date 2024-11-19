@@ -27,14 +27,23 @@ function sort_accordingly(array) { // Used for columnar transposition after subs
 function transposition_substitution_hybrid_cipher(message, key) {
     key = key.replace(/\s+/g, ''); // Clean the key by removing whitespaces
     let validCharArray = [
-        ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 
         'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 
         'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
     ]
       
-    const messageCharCodes = Array.from(message, char => validCharArray.indexOf(char)) // Store the ASCII values of each character 
+    //const messageCharCodes = Array.from(message, char => validCharArray.indexOf(char)) // Store the ASCII values of each character 
+    let messageCharCodes = []
+    for (i = 0; i < message.length; i++) {
+        if (validCharArray.indexOf(message[i])) {
+            messageCharCodes.push(validCharArray.indexOf(message[i]))
+        } else { // to handle spaces for now 
+            messageCharCodes.push(-1)
+        }
+    }
+
     /* 
     Parse space as filler character X, remove ' ' from validCharArray, modify modulo to 61 instead of 62
     Add if statement condition to check for spaces in input message
@@ -42,7 +51,7 @@ function transposition_substitution_hybrid_cipher(message, key) {
 
     /*
     Syntax: Array.from(iterable, map function) 
-    If message = "apple",
+    If message = "apple",                                                                            
     `Array.from(message)` yields ['a', 'p', 'p', 'l', 'e']
     `char => char.charCodeAt(0)` takes each character (which occupy index of zero) and converts them to its ASCII value 
     Each character occupies the zero index as they are being iterated over *
@@ -56,11 +65,15 @@ function transposition_substitution_hybrid_cipher(message, key) {
   
     let summedCharArray = []
     for (i = 0; i < message.length; i++) {
-        summedCharArray.push((messageCharCodes[i] + repeatedCharCodeKeyArray[i]) % 62)
+        if (messageCharCodes[i] == -1){
+            summedCharArray.push(-1)
+        } else {
+            summedCharArray.push((messageCharCodes[i] + repeatedCharCodeKeyArray[i]) % 62)
+        }
     }
 
     // Create an array which converts each ASCII value from summedCharArray into corresponding printable 
-    const substitutedCharArray = summedCharArray.map(index => validCharArray[index]) 
+    const substitutedCharArray = summedCharArray.map(index => index == -1 ? "?" : validCharArray[index]) 
     let substitutedCharString = substitutedCharArray.join('') // Join each character into a string 
 
     // Console debugging purposes 
@@ -84,12 +97,12 @@ function transposition_substitution_hybrid_cipher(message, key) {
             sub_array.length === 0 ? null : array_of_arrays.push(sub_array)
             sub_array = [] 
             if (message[i] == null || /\s/.test(message[i])) { 
-                sub_array.push("X")
+                sub_array.push("?")
             } else {
                 sub_array.push(message[i])
             }
         } else if (message[i] == null || /\s/.test(message[i])) { 
-            sub_array.push("X")
+            sub_array.push("?")
         } else {
             sub_array.push(message[i])
         }
@@ -105,7 +118,7 @@ function transposition_substitution_hybrid_cipher(message, key) {
     let joined_elements_of_subarray = alphabetically_sorted_columns.map(subArray => subArray.join("")) 
     const encrypted_message = joined_elements_of_subarray.join("") 
 
-    return [array_of_arrays, encrypted_message]
+    return [array_of_arrays, encrypted_message, encrypted_message.length]
 }
 
 // TheQuickBrownFox123JumpedOverTheLazyDog456
