@@ -42,9 +42,9 @@ function reverseMorseCode(morse_code) {
 
     let reversedMessage = morse_code
         .split(' ') // Split each morse code by space (each morse code character is split by space)
-        .map(char => reverseMorseCodes[char]) // Create a new array parsing each character into the key-value dictionary
+        .map(char => (reverseMorseCodes[char] !== undefined ? reverseMorseCodes[char] : char)) 
         .join(" ") // Rejoin the new morse code message with spaces in between for clarity 
-    
+
     return reversedMessage // Message will be in uppercase
 }
 

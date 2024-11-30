@@ -31,7 +31,11 @@ function morseCodeTranslator(message) {
 
     let translatedMessage = message
         .split('') // Add each character in message to an array
-        .map(char => morseCodes[char]) // Create a new array parsing each character into the key-value dictionary
+        .map(char => (morseCodes[char] !== undefined ? morseCodes[char] : char)) 
+        /* 
+        .map() creates a new array parsing each character into the key-value dictionary;
+        ternary operator handles characters not found in morseCodes dictionary
+        */
         .join(" ") // Rejoin the new morse code message with spaces in between for clarity 
 
     return translatedMessage
