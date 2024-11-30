@@ -4,8 +4,8 @@ const rl = readline.createInterface({
     output: process.stdout
 })
 
-rl.question("Enter morse code: ", (message) => {
-    console.log(reverseMorseCode(message))
+rl.question("Enter morse code: ", (morse) => {
+    console.log(reverseMorseCode(morse))
     rl.close();
 })
 
@@ -38,14 +38,13 @@ const reverseMorseCodes = Object.fromEntries(
     Object.fromEntries() converts an array of arrays back into key-value pair dictionary (whereby its input is an array of arrays)
 */
 
-function reverseMorseCode(message) {
+function reverseMorseCode(morse_code) {
 
-    let translatedMessage = message
+    let reversedMessage = morse_code
         .split(' ') // Split each morse code by space (each morse code character is split by space)
         .map(char => reverseMorseCodes[char]) // Create a new array parsing each character into the key-value dictionary
         .join(" ") // Rejoin the new morse code message with spaces in between for clarity 
     
-        message = message.toUpperCase(); // Convert to uppercase
-    return translatedMessage
+    return reversedMessage // Message will be in uppercase
 }
 
