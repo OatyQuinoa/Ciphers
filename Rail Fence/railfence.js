@@ -25,7 +25,7 @@ function splitString(input, rail) { // Where rail = # of rows
         if (i + rail <= input.length) { // 1
             output.push(input.substring(i, i + rail))
             console.log(i, output)
-            i += 3 // Increment by 3 to substring first 3 letters 
+            i += rail // Increment by number of rails to substring first # letters 
         }
 
         if (i < input.length) { // 2
