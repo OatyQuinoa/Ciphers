@@ -12,49 +12,75 @@ rl.question("Enter a message: ", (message) => {
 })
 
 // Write code 02/12/2024
-function rail_fence(message, num_rails) {
+// Rail fence cipher working as of 9/12/2024
+
+function rail_fence(str, rails) { // Where str = message input and rails = integer 
+    let top = [] // Stores indices of top row
+    let bottom = [] // Stories indices of bottom row
+    const top_int = 2*(rails) - 2 
+    let middle_output = "" // Stores the output of every row between top and bottom (at minimum 1 middle row)
     
-}
-
-function splitString(input, rail) { // Where rail = # of rows 
-    let output = [];
-    let i = 0;
-    let uprows = rail - 2 // 2 rails has 0 middle, 3 rails has 1 middle, 4 rails has 2 middles, so on and so forth
-
-    while (i < input.length) {
-        if (i + rail <= input.length) { // 1
-            output.push(input.substring(i, i + rail))
-            console.log(i, output)
-            i += rail // Increment by number of rails to substring first # letters 
+    if (rails == 2) { // Handle 2 rails (top and bottom, alternating)
+        for (i = 0; i < str.length; i++) {
+            if (i % 2 == 0) {
+                top.push(i)
+            } else {
+                bottom.push(i)
+            }
         }
-
-        if (i < input.length) { // 2
-            output.push(input.substring(i, i + uprows))
-            console.log(i, output, 2)
-            i += uprows // Increment by # of rails to substring # rails of letters 
+        
+        const top_row_output = top.map(index => str[index]).join("") // Map indices of top row to letters in the message
+        const bottom_row_output = bottom.map(index => str[index]).join("") // Map indices of bottom row to letters in the message
+        const final_output = top_row_output + bottom_row_output // Add top and bottom row since there is no middle row 
+        return final_output
+        
+    } else { // Handle more than 2 rails 
+        
+        let top_counter = 0
+        let bottom_counter = top_int/2
+        // Add indices of top row 
+        while (top_counter <= str.length ) { 
+            top.push(top_counter)
+            top_counter += top_int
+        } 
+        
+        // Add indices of bottom row 
+        while (bottom_counter <= str.length) {
+            bottom.push(bottom_counter)
+            bottom_counter += top_int
         }
-
-        // cycle repeats from 1-2-1-2 . . . 
-    }
-
-    console.log("Testing: ", output[0][2])
-    console.log("Output: ", output)
     
-    let downward_arr = []
-    let upward_arr = []
-
-    for (i = 0; i < output.length; i++) {
-        if (i % 2 == 0) {
-            downward_arr.push(output[i])
-        } else {
-            upward_arr.push(output[i])
+        let arr_midrows = []
+        let left_counter = 0
+        let right_counter = top_int 
+        
+        // (rails - 2) removes top and bottom rows, leaving middle rows for following computatation
+        for (i = 0; i < (rails - 2); i++) { // Outer loop traverses through each number of rows 
+            // Reset counters 
+            left_counter = 0
+            right_counter = top_int
+            
+            // Empty arr_midrows to add fresh indices from the next row 
+            arr_midrows = []
+            
+            while (!arr_midrows.includes(undefined)) { // Nested loop traverses through each letter on the same row 
+                let midrowL = str[left_counter + (1 + i)]
+                let midrowR = str[right_counter - (1 + i)]
+                arr_midrows.push(midrowL, midrowR)
+                
+                left_counter += top_int
+                right_counter += top_int
+            }
+            
+            // Filter undefined elements 
+            arr_midrows = arr_midrows.filter(element => element !== undefined) // Remove undefined elements 
+            middle_output += arr_midrows.join("") // Convert mid row array into string
         }
     }
-
-    console.log(10, downward_arr, upward_arr)
-
-    return output
+    
+    const top_row_output = top.map(index => str[index]).join("")
+    const bottom_row_output = bottom.map(index => str[index]).join("")
+    const final_output = top_row_output + middle_output + bottom_row_output
+    
+    return final_output
 }
-
-//console.log(splitString("CARECARECAR", 3))
-console.log(splitString("APPLEBEE", 3))
