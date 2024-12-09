@@ -1,4 +1,5 @@
 // test rail fence cipher, working as of 8 Dec 2024
+// Deprecated test file since 9 Dec 2024
 
 function test(str, rails) {
     let top = []
