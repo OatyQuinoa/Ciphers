@@ -39,13 +39,11 @@ function rail_fence_decipher(message, rails) {
     // Convert indices into letters, starting with top_arr
     let output_arr = []
     for (i = 0; i < top_arr.length; i++) {
-        let top_letter = top_substr[i] // retrieve letter from top_substr
-        output_arr[top_arr[i]] = top_letter // assign letter to position from top_arr (e.g., [0, 6, 12])
+        output_arr[top_arr[i]] = top_substr[i] // assign letter to position from top_arr (e.g., [0, 6, 12])
     }
 
     for (i = 0; i < bottom_arr.length; i++) {
-        let bottom_letter = bottom_substr[i]
-        output_arr[bottom_arr[i]] = bottom_letter
+        output_arr[bottom_arr[i]] = bottom_substr[i]
     }
 
     return [top_arr, bottom_arr, top_substr, bottom_substr, output_arr]
