@@ -19,12 +19,8 @@ function rail_fence_decipher(message, rails) {
     let top_counter = 0 
     let top_arr = []
     while (top_counter < message.length) {
-        if (top_counter < message.length) {
-            top_arr.push(top_counter)
-            top_counter += (2*(rails) - 2)
-        } else {
-            break
-        }
+        top_arr.push(top_counter)
+        top_counter += (2*(rails) - 2)
     }
 
     // Handle bottom 
