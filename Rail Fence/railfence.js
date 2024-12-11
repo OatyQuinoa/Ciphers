@@ -52,7 +52,7 @@ function rail_fence(str, rails) { // Where str = message input and rails = integ
     
         let arr_midrows = []
         let left_counter = 0
-        let right_counter = top_int 
+        let right_counter = 2*(rails) - 2
         
         // (rails - 2) removes top and bottom rows, leaving middle rows for following computatation
         for (i = 0; i < (rails - 2); i++) { // Outer loop traverses through each number of rows 
