@@ -15,7 +15,7 @@ rl.question("Enter a message to decode: ", (message) => {
 
 function rail_fence_decipher(message, rails) {
 
-    message = message.replace(/\s+/g, "") // Remove spaces
+    //message = message.replace(/\s+/g, "") // Remove spaces
 
     // Handle top 
     let top_counter = 0 
@@ -53,9 +53,10 @@ function rail_fence_decipher(message, rails) {
     let right_counter = 0 //2*(rails) - 2 - 1
     let arr_midrow_indices = []
     console.log("value of 2*(rails) - 2: ", 2*(rails) - 2)
+    let counter = 0 // Temporary
 
     for (i = 0; i < rails - 2; i++) {
-
+        counter = 0
         console.log("Log check: ", left_counter, right_counter)
 
         left_counter = i + 1
@@ -72,13 +73,17 @@ function rail_fence_decipher(message, rails) {
             left_counter += 2*(rails) - 2 
             right_counter += 2*(rails) - 2 
 
-            if (right_counter > message.length) {
+            counter++
+            if (counter > 20) {
+                break
+            }
+            /*
+            if (right_counter > message.length) { // Faulty
                 break 
-            } 
+            } */
         }
 
         console.log(i, "Current inventory of arr midrows indices: ", arr_midrow_indices)
-        // CONTINUE HERE, SUBSTRING THE ENCRYPTED MESSAGE INTO PARTS
 
         //arr_midrow_indices = arr_midrow_indices.filter(index => index !== undefined)
     }
@@ -98,6 +103,7 @@ function rail_fence_decipher(message, rails) {
 
 //console.log(rail_fence_decipher("CRUOERLTUTEOINNVO", 4))
 //console.log(rail_fence_decipher("COUNNOTIETRURLEOV", 10))
-//console.log(rail_fence_decipher("Rto5esrin4cnut13oc2", 4))
-//console.log(rail_fence_decipher("AjQ~190+-`ZbIK_=/28!N[?Ch@)]>37#({<dGL*}.46$&|,Ef%M;'5^:", 10)) // Faulty result
-console.log(rail_fence_decipher("AIQYgowBHJPRXZfhnpvxCGKOSWaeimquyDFLNTVbdjlrtzEMUcks", 5))
+console.log(rail_fence_decipher("Rto5esrin4cnut13oc2", 4))
+//console.log(rail_fence_decipher("AjQ~190+-`ZbIK_=/28!N[?Ch@)]>37#({<dGL*}.46$&|,Ef%M;'5^:", 5)) // Faulty result
+//console.log(rail_fence_decipher("AIQYgowBHJPRXZfhnpvxCGKOSWaeimquyDFLNTVbdjlrtzEMUcks", 5))
+console.log(rail_fence_decipher("Tkfshd2hc  op te o04eibnxmo  yg2 urw uvrlz!@qojea ", 5))
