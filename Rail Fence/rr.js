@@ -106,13 +106,13 @@ function rail_fence_decipher(message, rails) {
 
     const output_str = output_arr.join("") // Log output_arr to see array of plaintext letters
 
-    return [top_arr, bottom_arr, top_substr, bottom_substr, output_str, output_arr, message.length]
+    return [top_arr, bottom_arr, top_substr, bottom_substr, output_str, output_arr, output_arr.length, message.length]
 }
 
-//console.log(rail_fence_decipher("CRUOERLTUTEOINNVO", 4))
+console.log(rail_fence_decipher("CRUOERLTUTEOINNVO", 4))
 //console.log(rail_fence_decipher("COUNNOTIETRURLEOV", 10))
 //console.log(rail_fence_decipher("Rto5esrin4cnut13oc2", 4))
 //console.log(rail_fence_decipher("AjQ~190+-`ZbIK_=/28!N[?Ch@)]>37#({<dGL*}.46$&|,Ef%M;'5^:", 5)) // Faulty result
 //console.log(rail_fence_decipher("AIQYgowBHJPRXZfhnpvxCGKOSWaeimquyDFLNTVbdjlrtzEMUcks", 5))
 //console.log(rail_fence_decipher("Tkfshd2hc  op te o04eibnxmo  yg2 urw uvrlz!@qojea ", 5))
-console.log(rail_fence_decipher("T 8htCm31s4urs3sNs Te ,1  , !sxWsas 313nraLtCd3 pha tCm pLt0S3", 12))
+//console.log(rail_fence_decipher("T 8htCm31s4urs3sNs Te ,1  , !sxWsas 313nraLtCd3 pha tCm pLt0S3", 12))
