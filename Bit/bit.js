@@ -12,5 +12,13 @@ rl.question("Enter a message to encode", (message) => {
 */
 
 function bitwise_cipher(message) {
-    return [message]
+    let binary_message = message
+        .split("")
+        .map(char => char.charCodeAt(0).toString(2).padStart(8, "0"))
+        .join(" ")
+    return binary_message
 }
+
+console.log(bitwise_cipher("ABC"))
+console.log("Exclusive OR (XOR), if given 1 and 0", 1 ^ 0)
+console.log("Exclusive OR (XOR), if given 1 and 1", 1 ^ 1)
