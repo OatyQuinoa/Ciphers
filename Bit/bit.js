@@ -54,3 +54,19 @@ function bitwise_cipher(message) {
 
 
 console.log("Ans: ", bitwise_cipher("44"))
+
+// Begin using hexadecimal key
+
+function random_hex_key(length) {
+    let key = ""
+    const characters = '0123456789abcdef' // hex base 16 
+
+    for (i = 0; i < length; i++) {
+        let randomChar = characters[Math.floor(Math.random() * characters.length)]
+        key += randomChar
+    }
+
+    return key
+}
+
+console.log(random_hex_key(16))
