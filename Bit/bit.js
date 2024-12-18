@@ -15,7 +15,7 @@ function bitwise_cipher(message) {
     // Convert message to bit form: 
     let binary_message = message
         .split("")
-        .map(char => char.charCodeAt(0).toString(2).padStart(8, "0"))
+        .map(char => char.charCodeAt(0).toString(2).padStart(8, "0")) 
         .join("")
 
     // Create a binary key to XOR each bit from binary_message: 
@@ -49,24 +49,9 @@ function bitwise_cipher(message) {
         char_output += char
     }
 
-    return [bitwise_XOR_output, decimal_arr, char_arr, char_output]
+    console.log(message, message.length, binary_message, binary_message.length, bitwise_XOR_output, decimal_arr, char_arr, char_output)
+    return char_output
 }
 
 
-console.log("Ans: ", bitwise_cipher("44"))
-
-// Begin using hexadecimal key
-
-function random_hex_key(length) {
-    let key = ""
-    const characters = '0123456789abcdef' // hex base 16 
-
-    for (i = 0; i < length; i++) {
-        let randomChar = characters[Math.floor(Math.random() * characters.length)]
-        key += randomChar
-    }
-
-    return key
-}
-
-console.log(random_hex_key(16))
+console.log("Output: ", bitwise_cipher("44"))
