@@ -6,12 +6,14 @@ const rl = readline.createInterface({
 
 rl.question("Enter a message: ", (message) => {
     rl.question("Enter a shift value: ", (shift) => {
-        console.log(caesar_cipher(message, shift))
-        rl.close();
+        rl.question("Encrypt or decrypt? (E) or (D): ", (type) => {
+            console.log(caesar_cipher(message, shift, type))
+            rl.close();
+        })
     })
 })
 
-function caesar_cipher(message, shift) {
+function caesar_cipher(message, shift, type) {
     let arrayOfIndicesOfEachLetterInMessage = []; // Stores indices of alphabetical letters in the message // arrayOfIndicesOfEachLetterInMessage
     let resultList = []; // Stores indices of encrypted letters 
     let caseInfo = [];  // Stores case information for each letter (uppercase/lowercase)
@@ -53,13 +55,26 @@ function caesar_cipher(message, shift) {
         arrayOfIndicesOfEachLetterInMessage.push(correspondingAlphabeticalIndex); 
     }
 
+    // Handle encrypt and decrypt types
     // Shift each letter from the message by input `shift`
-    for (let i = 0; i < arrayOfIndicesOfEachLetterInMessage.length; i++) {
-        if (arrayOfIndicesOfEachLetterInMessage[i] !== -1) {
-            resultList.push((arrayOfIndicesOfEachLetterInMessage[i] + shift) % 26); 
-        } else {
-            resultList.push(null); 
+    if (type.toLowerCase() == "e") {
+        for (let i = 0; i < arrayOfIndicesOfEachLetterInMessage.length; i++) {
+            if (arrayOfIndicesOfEachLetterInMessage[i] !== -1) {
+                resultList.push((arrayOfIndicesOfEachLetterInMessage[i] + shift) % 26); 
+            } else {
+                resultList.push(null); 
+            }
         }
+    } else if (type.toLowerCase() == "d") {
+        for (let i = 0; i < arrayOfIndicesOfEachLetterInMessage.length; i++) {
+            if (arrayOfIndicesOfEachLetterInMessage[i] !== -1) {
+                resultList.push((arrayOfIndicesOfEachLetterInMessage[i] + 26 - shift) % 26); 
+            } else {
+                resultList.push(null); 
+            }
+        }
+    } else {
+        return new Error("Function type error occurred. E or D for encrypt or decrypt only.")
     }
 
     // Handle upper- and lowercase letters of encrypted message, using caseInfo which collected the cases from plaintext message. 
