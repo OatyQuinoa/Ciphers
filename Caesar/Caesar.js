@@ -90,3 +90,5 @@ function caesar_cipher(message, shift, type) {
 
     return caesar_output
 }
+
+// Note: negative shift value in combination with Encrypt type works the same as Decrypt type
