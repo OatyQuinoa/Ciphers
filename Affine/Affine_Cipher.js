@@ -126,7 +126,7 @@ function affine_cipher(message, a, b) {
 
     // Loop through indices of messageIndicesArray (containing the indices of every letter) and return encrypted value 
     for (i = 0; i < messageIndicesArray.length; i++) {
-        // Formula for Affine encryption: (ax + b) mod 26, where x = index of letter 
+        // Formula for Affine encryption: (ax + b) mod 26, where a = multiplicative key (must be coprime to 26), b = additive key, and x = index of letter
         if (messageIndicesArray[i] !== -1) {
             encryptedMessageIndicesArray.push(((roundedA * messageIndicesArray[i]) + roundedB) % 26)
         } else {
