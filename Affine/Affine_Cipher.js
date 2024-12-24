@@ -19,7 +19,9 @@ function checkIfCoprime(a, b) { // where `a` and `b` are two numbers to be compa
     let factorArrayA = [];
     let factorArrayB = [];
 
-    // Both conditions will proceed until less than or equal to square root of a or b 
+    // Following code produces the common factors of number `a` and number `b` 
+    // Both conditions will proceed until less than or equal to square root of a or b (for optimization to avoid reversed duplicates) 
+    // Given an integer 16, its factors are [1, 16, 2, 8, 4, 4, 8, 2, 16, 1]. All factors beyond [4, 4] are redundant (reversed duplicates)
     while (testCounterA <= Math.sqrt(a) || testCounterB <= Math.sqrt(b)) { // Utilizing square root to limit redundant factors. 
         if (a % testCounterA === 0) { // E.g., 17 % 1 === 0, any whole number divided by 1 gives the whole number, hence no remainder 
             // If testCounter is a factor, add both the factor and its pair
@@ -32,6 +34,15 @@ function checkIfCoprime(a, b) { // where `a` and `b` are two numbers to be compa
         testCounterA++;
         testCounterB++;
     }
+
+    /* EXPLANATION OF ABOVE CODE
+    Suppose we want to find the common factors of a = 13 and b = 26,
+    sqrt(9) < sqrt(13) < sqrt(16) = 3 < sqrt(13) < 4, so testCounterA will increment to a maximum of 3
+    sqrt(25) < sqrt(26) < sqrt(36) = 5 < sqrt(26) < 6, so testCounterB will increment to a maximum of 5
+
+    13 % 1 = 0, hence push [1, 13]. (1 < a < 3) % 13 !== 0, thus only 1 and 13 are factors of 13. 
+    26 % 1 = 0, hence push [1, 26], 26 % 2 = 0, hence push [2, 13]. (2 < b < 5) % 26 !== 0, thus [1, 26] and [2, 13] are factors of 26
+    */
     
     // Sort arrays in ascending order so following pointers work 
     factorArrayA.sort((a,b) => (a - b));
