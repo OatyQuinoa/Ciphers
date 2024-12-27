@@ -96,20 +96,10 @@ def affine(message, a, b):
     for index in range(len(encryptedMessageIndicesArray)):
 
         if (encryptedMessageIndicesArray[index] == -1):
-           #output += uppercaseAlphabet[encryptedMessageIndicesArray[index]] if caseInfo[index] == "uppercase" else lowercaseAlphabet[encryptedMessageIndicesArray[index]]
             output += message[index]
-            continue
-
-        # Fix code here
-        if (caseInfo[index] == "uppercase"): 
-            print(index, " Index: ", encryptedMessageIndicesArray[index], caseInfo[index], uppercaseAlphabet[encryptedMessageIndicesArray[index]])
-            output += uppercaseAlphabet[encryptedMessageIndicesArray[index]]
-        else: 
-            print(index, " Index: ", encryptedMessageIndicesArray[index], caseInfo[index], lowercaseAlphabet[encryptedMessageIndicesArray[index]])
-            output += lowercaseAlphabet[encryptedMessageIndicesArray[index]]
-
-    
-    print("Testing: ", uppercaseAlphabet[3])
+            continue # Skips following code in current iteration 
+        
+        output += uppercaseAlphabet[encryptedMessageIndicesArray[index]] if caseInfo[index] == "upper" else lowercaseAlphabet[encryptedMessageIndicesArray[index]]
 
     return [message, a, b, caseInfo, encryptedMessageIndicesArray, output]
 
