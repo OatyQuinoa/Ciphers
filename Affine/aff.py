@@ -1,8 +1,11 @@
-message = input("Enter a message: ")
-a = int(input("Enter a numerical value of `a`: ")) # Where `a` is the multiplicative key (must be coprime to 26)
-b = int(input("Enter a numerical value of `b`: ")) # Where `b` is the additive key 
+from math import sqrt, isnan # Import square root function from math library 
 
-from math import sqrt # Import square root function from math library 
+message = input("Enter a message: ")
+a = int(input("Enter a numerical value of a: ")) # Where `a` is the multiplicative key (must be coprime to 26)
+b = int(input("Enter a numerical value of b: ")) # Where `b` is the additive key 
+
+# ValueError: invalid literal for int() with base 10: 'num' if a or b is givne non-numerical inputs
+
 def checkIfCoprime(a, b):
 
     # First determine the common factors of a and b
@@ -48,7 +51,40 @@ def checkIfCoprime(a, b):
     return True if (len(array_of_duplicates) == 1 and array_of_duplicates[0] == 1) else False
 
 def affine(message, a, b):
-    return [message, a, b]
+    caseInfo = []
+    messageIndicesArray = []
+    encryptedMessageIndicesArray = []
+
+    uppercaseAlphabet = [
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
+        "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+    ]
+
+    lowercaseAlphabet = [
+        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
+        "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+    ]
+
+    for letter in message:
+        alphabetToUse = uppercaseAlphabet # Alphabet in use 
+
+        if letter in uppercaseAlphabet:
+            alphabetToUse = uppercaseAlphabet
+            caseInfo.append("upper")
+        elif letter in lowercaseAlphabet:
+            alphabetToUse = lowercaseAlphabet
+            caseInfo.append("lower")
+        else:
+            messageIndicesArray.append(-1)
+            caseInfo.append(None) 
+            continue    
+
+        alphabeticalIndex = alphabetToUse.index(letter) 
+        # index() returns the index of the letter in the specified alphabet 
+        # e.g., lowercaseAlphabet.index("a") = 0
+        messageIndicesArray.append(alphabeticalIndex) 
+
+    return [message, a, b, caseInfo]
 
 print(checkIfCoprime(a, b))
 print(affine(message, a, b))
