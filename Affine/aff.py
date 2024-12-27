@@ -84,7 +84,14 @@ def affine(message, a, b):
         # e.g., lowercaseAlphabet.index("a") = 0
         messageIndicesArray.append(alphabeticalIndex) 
 
-    return [message, a, b, caseInfo]
+    # for index, value in enumerate(messageIndicesArray):
+    for index in range(len(messageIndicesArray)):
+        if (messageIndicesArray[index] != -1):
+            encryptedMessageIndicesArray.append(((a * messageIndicesArray[index]) + b) % 26)
+        else:
+            encryptedMessageIndicesArray.append(-1)
+
+    return [message, a, b, caseInfo, encryptedMessageIndicesArray]
 
 print(checkIfCoprime(a, b))
 print(affine(message, a, b))
