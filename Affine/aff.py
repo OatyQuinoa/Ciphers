@@ -84,14 +84,35 @@ def affine(message, a, b):
         # e.g., lowercaseAlphabet.index("a") = 0
         messageIndicesArray.append(alphabeticalIndex) 
 
-    # for index, value in enumerate(messageIndicesArray):
+    # Compute indices for each encrypted letter 
     for index in range(len(messageIndicesArray)):
         if (messageIndicesArray[index] != -1):
             encryptedMessageIndicesArray.append(((a * messageIndicesArray[index]) + b) % 26)
         else:
             encryptedMessageIndicesArray.append(-1)
 
-    return [message, a, b, caseInfo, encryptedMessageIndicesArray]
+    # Output the encrypted letters
+    output = ""
+    for index in range(len(encryptedMessageIndicesArray)):
+
+        if (encryptedMessageIndicesArray[index] == -1):
+           #output += uppercaseAlphabet[encryptedMessageIndicesArray[index]] if caseInfo[index] == "uppercase" else lowercaseAlphabet[encryptedMessageIndicesArray[index]]
+            output += message[index]
+            continue
+
+        # Fix code here
+        if (caseInfo[index] == "uppercase"): 
+            print(index, " Index: ", encryptedMessageIndicesArray[index], caseInfo[index], uppercaseAlphabet[encryptedMessageIndicesArray[index]])
+            output += uppercaseAlphabet[encryptedMessageIndicesArray[index]]
+        else: 
+            print(index, " Index: ", encryptedMessageIndicesArray[index], caseInfo[index], lowercaseAlphabet[encryptedMessageIndicesArray[index]])
+            output += lowercaseAlphabet[encryptedMessageIndicesArray[index]]
+
+    
+    print("Testing: ", uppercaseAlphabet[3])
+
+    return [message, a, b, caseInfo, encryptedMessageIndicesArray, output]
+
 
 print(checkIfCoprime(a, b))
 print(affine(message, a, b))
