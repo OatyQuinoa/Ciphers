@@ -94,7 +94,25 @@ def affine_decipher(message, a, b):
         # index() returns the index of the letter in the specified alphabet 
         # e.g., lowercaseAlphabet.index("a") = 0
         messageIndicesArray.append(alphabeticalIndex) 
-    
-    return messageIndicesArray
+
+    # Compute indices for each decrypted letter using decipher formula:
+    # // Formula for decryption = (a^-1 * (y - b)) mod 26, where a^-1 is the modular inverse of `a` and y is the index of the encrypted letter 
+    for index in range(len(messageIndicesArray)):
+        if (messageIndicesArray[index] != -1):
+            decryptedMessageIndicesArray.append(((modular_inverse(a, 26)) * (((messageIndicesArray[index] + 26) - b) % 26) % 26))
+        else:
+            decryptedMessageIndicesArray.append(-1)
+
+    # Output the decrypted letters
+    decrypted_message = ""
+    for index in range(len(decryptedMessageIndicesArray)):
+
+        if (decryptedMessageIndicesArray[index] == -1):
+            output += message[index]
+            continue # Skips following code in current iteration 
+
+        output += uppercaseAlphabet[decryptedMessageIndicesArray[index]] if caseInfo[index] == "upper" else lowercaseAlphabet[decryptedMessageIndicesArray[index]]
+
+    return decrypted_message
 
 print(affine_decipher(message, a, b))
