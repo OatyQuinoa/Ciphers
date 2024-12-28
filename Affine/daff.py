@@ -108,10 +108,10 @@ def affine_decipher(message, a, b):
     for index in range(len(decryptedMessageIndicesArray)):
 
         if (decryptedMessageIndicesArray[index] == -1):
-            output += message[index]
+            decrypted_message += message[index]
             continue # Skips following code in current iteration 
 
-        output += uppercaseAlphabet[decryptedMessageIndicesArray[index]] if caseInfo[index] == "upper" else lowercaseAlphabet[decryptedMessageIndicesArray[index]]
+        decrypted_message += uppercaseAlphabet[decryptedMessageIndicesArray[index]] if caseInfo[index] == "upper" else lowercaseAlphabet[decryptedMessageIndicesArray[index]]
 
     return decrypted_message
 
