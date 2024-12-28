@@ -1,4 +1,4 @@
-from math import sqrt, isnan # Import square root function from math library 
+from math import sqrt # Import square root function from math library 
 
 message = input("Enter a message: ")
 a = int(input("Enter a numerical value of a: ")) # Where `a` is the multiplicative key (must be coprime to 26)
@@ -98,7 +98,7 @@ def affine(message, a, b):
         if (encryptedMessageIndicesArray[index] == -1):
             output += message[index]
             continue # Skips following code in current iteration 
-        
+
         output += uppercaseAlphabet[encryptedMessageIndicesArray[index]] if caseInfo[index] == "upper" else lowercaseAlphabet[encryptedMessageIndicesArray[index]]
 
     return [message, a, b, caseInfo, encryptedMessageIndicesArray, output]
