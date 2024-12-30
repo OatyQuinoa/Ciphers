@@ -6,7 +6,7 @@ function test(str, rails) {
     let bottom = []
     const top_int = 2*rails - 2
     const bottom_int = top_int/2 // Unnecessary?
-    const mid_rows = rails - 2
+    const mid_rows = rails - 2 
     let middle_output = ""
     
     if (rails == 2) { // Handle 2 rails 
@@ -84,4 +84,4 @@ function test(str, rails) {
     return [final_output, final_output.length, str.length]
 }
 
-console.log(test("COUNTERREVOLUTION", 5))
+console.log(test("COUNTERREVOLUTION", 5)) 
